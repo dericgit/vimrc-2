@@ -8,3 +8,4 @@ _vimfavourites
 *.patch
 .DS_Store
 Thumb*.db
+vimfiles/view
