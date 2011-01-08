@@ -557,7 +557,6 @@ if has("win32")
     let g:fontsize#encoding = "cp936"
 endif
 
-
 " =============
 " Color Scheme
 " =============
@@ -572,6 +571,7 @@ if has('syntax')
 
     " 保证语法高亮
     syntax on
+.*
 endif
 
 " vim: set et sw=4 ts=4 sts=4 fdm=marker ft=vim ff=unix fenc=utf8:

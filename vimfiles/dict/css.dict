@@ -20,6 +20,7 @@
 -replace
 -set-link-source
 -use-link-source
+absolute
 accelerator
 azimuth
 background
@@ -135,6 +136,7 @@ pitch-range
 play-during
 position
 quotes
+relative
 richness
 right
 ruby-align
@@ -154,6 +156,7 @@ speak-header
 speak-numeral
 speak-punctuation
 speech-rate
+static
 stress
 table-layout
 text-align
