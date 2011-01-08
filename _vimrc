@@ -368,6 +368,10 @@ if has("autocmd")
     " 将指定文件的换行符转换成 UNIX 格式
     au FileType php,javascript,html,css,python,vim,vimwiki set ff=unix
 
+    " 保存编辑状态
+    au BufWinLeave * if expand('%') != '' && &buftype == '' | mkview | endif
+    au BufRead     * if expand('%') != '' && &buftype == '' | silent loadview | syntax on | endif
+
     " 自动最大化窗口
     if has('gui_running')
         if has("win32")

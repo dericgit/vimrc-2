@@ -3,7 +3,8 @@ _vimfavourites
 .idea
 .svn
 *~
+*.swp
 *.diff
 *.patch
 .DS_Store
-Thumb.db
+Thumb*.db

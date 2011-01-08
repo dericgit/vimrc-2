@@ -5,7 +5,36 @@ Directory Structure
 
 .
 |-- vim72
-|   |-- ...
+|   |-- autoload
+|   |-- colors
+|   |-- compiler
+|   |-- doc
+|   |-- ftplugin
+|   |-- indent
+|   |-- keymap
+|   |-- lang
+|   |-- macros
+|   |-- plugin
+|   |-- spell
+|   |-- syntax
+|   |-- tools
+|   `-- tutor
+|-- vim73
+|   |-- autoload
+|   |-- colors
+|   |-- compiler
+|   |-- doc
+|   |-- ftplugin
+|   |-- icons
+|   |-- indent
+|   |-- keymap
+|   |-- lang
+|   |-- macros
+|   |-- plugin
+|   |-- print
+|   |-- spell
+|   |-- syntax
+|   |-- tools
 |   `-- tutor
 `-- vimfiles
     |-- after
@@ -22,3 +51,4 @@ Directory Structure
     |-- snippets
     |-- syntax
     `-- templates
+
