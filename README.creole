@@ -9,7 +9,7 @@
 |-- vim73
 |   `-- // Vim7.3 for Windows(Recompiled)
 `-- vimfiles
-    `-- // Runtime & Plugins etc.
+    `-- // Vim Runtime & Plugins etc.
 }}}
 
 == Windows 用户请注意
@@ -17,4 +17,4 @@
 本库包含了绿色版本的 Vim7.2& Vim7.3 下载后，打开对应目录中的 install.exe 即可
 完成安装。
 
-// vim: set et sw=4 ts=4 sts=4 fdm=marker ff=unix ft=wiki fenc=utf8 nobomb:
+<!-- vim: set et sw=4 ts=4 sts=4 fdm=marker ff=unix ft=wiki fenc=utf8 nobomb: -->
