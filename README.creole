@@ -1,54 +1,20 @@
-明城的 Vim 配置文件
+= 明城的 Vim 运行环境
 
-Directory Structure
-===================
+== 目录结构
 
+{{{
 .
 |-- vim72
-|   |-- autoload
-|   |-- colors
-|   |-- compiler
-|   |-- doc
-|   |-- ftplugin
-|   |-- indent
-|   |-- keymap
-|   |-- lang
-|   |-- macros
-|   |-- plugin
-|   |-- spell
-|   |-- syntax
-|   |-- tools
-|   `-- tutor
+|   `-- // Vim7.2 for Windows
 |-- vim73
-|   |-- autoload
-|   |-- colors
-|   |-- compiler
-|   |-- doc
-|   |-- ftplugin
-|   |-- icons
-|   |-- indent
-|   |-- keymap
-|   |-- lang
-|   |-- macros
-|   |-- plugin
-|   |-- print
-|   |-- spell
-|   |-- syntax
-|   |-- tools
-|   `-- tutor
+|   `-- // Vim7.3 for Windows(Recompiled)
 `-- vimfiles
-    |-- after
-    |-- autoload
-    |-- colors
-    |-- dict
-    |-- doc
-    |-- ftdetect
-    |-- ftplugin
-    |-- indent
-    |-- lib
-    |-- plugin
-    |-- session
-    |-- snippets
-    |-- syntax
-    `-- templates
+    `-- // Runtime & Plugins etc.
+}}}
 
+== Windows 用户请注意
+
+本库包含了绿色版本的 Vim7.2& Vim7.3 下载后，打开对应目录中的 install.exe 即可
+完成安装。
+
+// vim: set et sw=4 ts=4 sts=4 fdm=marker ff=unix ft=wiki fenc=utf8 nobomb:
