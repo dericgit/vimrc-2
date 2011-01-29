@@ -533,7 +533,7 @@ if !exists("g:vimwiki_list")
         " 注意！
         " 1、如果在 Windows 下，盘符必须大写
         " 2、路径末尾最好加上目录分隔符
-        let s:vimwiki_root = "D:/Documents/My Dropbox/Vimwiki"
+        let s:vimwiki_root = "d:/My Documents/My Dropbox/Vimwiki"
         let g:vimwiki_list = [
                     \{"path": s:vimwiki_root."/Default/", 
                     \   "html_footer": s:vimwiki_root."/Default/footer.tpl", 
