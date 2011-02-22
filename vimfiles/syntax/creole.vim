@@ -1,74 +1,92 @@
 " Vim syntax file
 " Language:     creole
-" Maintainer:   shellholic <shellholic+vim-creole@gmail.com>
-" Last Change:  2011-01-11
+" Maintainer:   Peter Hoffmann <ph@peter-hoffmann.com>
+" Last Change:  2007 May 31
 
-syn match creoleUrl     "\(http\|ftp\)://\([a-zA-Z0-9-_~%*@&=+$/#\[\]]\|[(,.?!:;"')]\(\s\|$\)\@!\)*"
-syn region creoleEscape matchgroup=creoleKeyword start=+\~+ end=+\s+ end=+$+
+" This syntax file is based on the wiki.vim syntax file from Andreas Kneib
 
-syn region creoleLinkBlock   matchgroup=creoleKeyword  start=+\[\[+ end=+\]\]+ contains=creoleLinkBar,creoleBold,creoleItalic,creoleBoldItalic,creoleMiscFormatting,creoleBreak,creoleCode,creoleUrl
-syn region creoleImgBlock   matchgroup=creoleKeyword  start=+{{+ end=+}}+ contains=creoleLinkBar,creoleBold,creoleItalic,creoleBoldItalic,creoleMiscFormatting,creoleBreak,creoleCode,creoleUrl
-syn match creoleLinkBar "|" contained
-syn match creoleLinkBar "->" contained
+" Little syntax file to use a wiki-editor with VIM
+" (if your browser allow this action) 
+" To use this syntax file:
+" 1. mkdir ~/.vim/syntax
+" 2. mv ~/creole.vim ~/.vim/syntax/creole.vim
+" 3. :set syntax=creole
+"
 
-syn region creoleCode   matchgroup=creoleKeyword  start=+{{{+ end=+}}}+ skip=+^\s\+}}}+
+"Some hints to extend wiki creole editing
+"set path=.,~/wiki/
+"au BufRead,BufNewFile *.txt setfiletype creole
 
-syn region creoleMiscFormatting   matchgroup=creoleKeyword start=+##+ end=+##+ end=+\n+
-syn region creoleMiscFormatting   matchgroup=creoleKeyword start=+__+ end=+__+ end=+\n+
-syn region creoleMiscFormatting   matchgroup=creoleKeyword start=+--+ end=+--+ end=+\n+
-syn region creoleMiscFormatting   matchgroup=creoleKeyword start=+\^\^+ end=+\^\^+ end=+\n+
-syn region creoleMiscFormatting   matchgroup=creoleKeyword start=+,,+ end=+,,+ end=+\n+
+"write current file and open file under cursor in new tab
+"nnoremap gF :w<cr> :tabedit <cfile><cr>
 
-syn region creolePlugin   matchgroup=creoleKeyword start=+<<+ end=+>>+ end=+\n+
+"use the snippetsEmu plugin for wiki code
+"Snippet { {{{<CR><{}><CR>}}}<CR><{}>
+"Snippet * **<{}>** <{}> 
+"Snippet _ __<{}>__ <{}> 
+"Snippet - --<{}>-- <{}> 
+"Snippet [ [[<{}>]] <{}> 
 
-syn region creoleBold   matchgroup=creoleKeyword start=+\*\*+ end=+\*\*+ end=+\n\n+ contains=creoleBoldItalic,creoleLinkBlock
-syn region creoleItalic matchgroup=creoleKeyword start=+//+ end=+//+ end=+\n\n+ skip=+://+ contains=creoleBoldItalic,creoleLinkBlock
-syn region creoleBoldItalic matchgroup=creoleKeyword start=+\*\*+ end=+\*\*+ end=+\n\n+ contained
-syn region creoleBoldItalic matchgroup=creoleKeyword start=+//+ end=+//+ end=+\n\n+ contained
 
-syn region creoleH1     matchgroup=creoleHead start="^\s*=[^=]" end="\(\s*=\+\s*\)\?$"
-syn region creoleH2     matchgroup=creoleHead start="^\s*==[^=]" end="\(\s*=\+\s*\)\?$"
-syn region creoleH3     matchgroup=creoleHead start="^\s*===[^=]" end="\(\s*=\+\s*\)\?$"
-syn region creoleH4     matchgroup=creoleHead start="^\s*====[^=]" end="\(\s*=\+\s*\)\?$"
-syn region creoleH5     matchgroup=creoleHead start="^\s*=====[^=]" end="\(\s*=\+\s*\)\?$"
-syn region creoleH6     matchgroup=creoleHead start="^\s*======[^=]" end="\(\s*=\+\s*\)\?$"
+" Quit if syntax file is already loaded
+if version < 600
+  syntax clear
+elseif exists("b:current_syntax")
+  finish
+endif
 
-syn region creoleTableLine matchgroup=creoleTableBorder start=+^\s*|=\?+ end=+|\?\s*$+ contains=creoleTableCell,creoleTableBorder
-syn match creoleTableCell "[^|]*\(|=\?\)\@!" contained contains=creoleBold,creoleItalic,creoleBoldItalic,creoleMiscFormatting,creoleBreak,creoleCode
-syn match creoleTableBorder "|=\?" contained
+if version < 508
+  command! -nargs=+ WikiHiLink hi link <args>
+else
+  command! -nargs=+ WikiHiLink hi def link <args>
+endif
 
-syn match creoleHRule   "^\s*----\s*$"
-syn match creoleBreak   "\\\\"
+syn match   wikiLine        "^----$"
+"TODO add different markup for [[link|name]] type of links
+syn region  wikiLink        start=+\[\[+hs=s+2 end=+\]\]+he=e-2
+syn match   wikiList        "^[*#]* "
+syn region  wikiCurly       start="{\{3\}" end="}\{3\}"
+syn region  wikiHead        start="^=" end="$"
+"syn region  wikiSubhead     start="^== " end="$"
+"TODO add syntax for tables
 
-syn region creoleList     matchgroup=creoleOperator start="^\s*\(\*\|\#\)\+" end="\n\n" end="\n\([*#:;=>]\)\@=" contains=creoleBold,creoleItalic,creoleBoldItalic,creoleMiscFormatting,creoleBreak,creoleCode
-syn region creoleList     matchgroup=creoleOperator start="^\s*\:\+" end="\n\n" end="\n\([*#:;=>]\)\@=" contains=creoleBold,creoleItalic,creoleBoldItalic,creoleMiscFormatting,creoleBreak,creoleCode
-syn region creoleList     matchgroup=creoleOperator start="^\s*>\+" end="\n\n" end="\n\([*#:;=>]\)\@=" contains=creoleBold,creoleItalic,creoleBoldItalic,creoleMiscFormatting,creoleBreak,creoleCode
-syn region creoleList     matchgroup=creoleOperator start="^\s*;" end="\n\n" end="\n\([*#:;=>]\)\@=" contains=creoleBold,creoleItalic,creoleBoldItalic,creoleMiscFormatting,creoleBreak,creoleCode
+"try to not get confused with wikiLink
+syn region  wikiBold        start="\*\*[^ ]" end="\*\*"
+"try to not get confused with http://
+"FIXME does not work at beginning of line
+syn region  wikiItalic      start="[^:]\/\/"hs=s+1   end="[^:]\/\/"
+syn region  wikiUnderline   start="__" end="__"
+"syn region  wikiStrike      start="--" end="--"
+"TODO add regions for mixed markup
+"syn region wikiBoldItalic   contained start=+\([^']\|^\)''[^']+ end=+[^']''\([^']\|$\)+
+"syn region wikiItalicBold   contained start=+'''+ end=+'''+
 
-hi def link creoleUrl Underlined
-hi def link creoleLinkText Todo
-hi def link creoleCode Comment
-hi def link creolePlugin Statement
-hi def link creoleOperator Statement
-hi def link creoleKeyword Special
-hi def link creoleHead Statement
-hi def link creoleH1 Title
-hi def link creoleH2 creoleH1
-hi def link creoleH3 creoleH2
-hi def link creoleH4 creoleH3
-hi def link creoleH5 creoleH4
-hi def link creoleH6 creoleH5
-hi def link creoleHRule Keyword
-hi def link creoleBreak Special
-hi def link creoleLinkBar Special
-hi def link creoleTableBorder Keyword
+" The default highlighting.
+if version >= 508 || !exists("did_wiki_syn_inits")
+  if version < 508
+    let did_wiki_syn_inits = 1
+  endif
+  
+WikiHiLink wikiCurly       Type
+WikiHiLink wikiHead        Statement 
+"  WikiHiLink wikiSubhead     PreProc
+WikiHiLink wikiList        String
+WikiHiLink wikiExtLink     Identifier
+WikiHiLink wikiLink        Identifier
+WikiHiLink wikiLine        PreProc
 
-" inspired by "html.vim"
-hi def creoleBold                term=bold cterm=bold gui=bold
-hi def creoleBoldUnderline       term=bold,underline cterm=bold,underline gui=bold,underline
-hi def creoleBoldItalic          term=bold,italic cterm=bold,italic gui=bold,italic
-hi def creoleBoldUnderlineItalic term=bold,italic,underline cterm=bold,italic,underline gui=bold,italic,underline
-hi def creoleUnderline           term=underline cterm=underline gui=underline
-hi def creoleUnderlineItalic     term=italic,underline cterm=italic,underline gui=italic,underline
-hi def creoleItalic              term=italic cterm=italic gui=italic
-hi def link creoleMiscFormatting Comment
+hi def     wikiBold        term=bold cterm=bold gui=bold
+ " hi def     wikiBoldItalic  term=bold,italic cterm=bold,italic gui=bold,italic
+hi def     wikiItalic      term=italic cterm=italic gui=italic
+ " hi def     wikiItalicBold  term=bold,italic cterm=bold,italic gui=bold,italic
+hi def  wikiUnderline   term=underline cterm=underline gui=underline
+"hi def wikiStrike ???
+
+endif
+
+delcommand WikiHiLink
+  
+let b:current_syntax = "creole"
+
+"EOF vim: tw=78:ft=vim:ts=8
+
