@@ -564,10 +564,10 @@ if has('syntax')
     colorscheme zenburn
 
     " 默认编辑器配色
-    au BufNewFile,BufRead,BufEnter,WinEnter * colo sonofobsidian
+    au BufNewFile,BufRead,BufEnter,WinEnter * colo zenburn
 
     " 各不同类型的文件配色不同
-    au BufNewFile,BufRead,BufEnter,WinEnter *.wiki colo void
+    au BufNewFile,BufRead,BufEnter,WinEnter *.wiki colo lucius
 
     " 保证语法高亮
     syntax on
