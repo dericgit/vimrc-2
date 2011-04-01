@@ -525,8 +525,7 @@ if !exists("g:vimwiki_list")
     let g:vimwiki_list = [
                 \{"path": "~/Wiki/Default/", "path_html": "~/Sites/wiki/",  
                 \   "html_footer": "~/Wiki/Default/footer.tpl", "html_header": "~/Wiki/Default/header.tpl",
-                \   "auto_export": 1},
-                \{"path": "~/Wiki/WebWW/",   "path_html": "~/Sites/webww/", "auto_export": 1}
+                \   "auto_export": 1}
                 \]
     let g:vimwiki_auto_checkbox = 0
     if has('win32')
@@ -538,9 +537,7 @@ if !exists("g:vimwiki_list")
                     \{"path": s:vimwiki_root."/Default/", 
                     \   "html_footer": s:vimwiki_root."/Default/footer.tpl", 
                     \   "html_header": s:vimwiki_root."/Default/header.tpl",
-                    \   "path_html": s:vimwiki_root."/Default/_output/", "auto_export": 1},
-                    \{"path": s:vimwiki_root."/WebWW/", 
-                    \"path_html": s:vimwiki_root."/WebWW/html/",   "auto_export": 1}
+                    \   "path_html": s:vimwiki_root."/Default/_output/", "auto_export": 1}
                     \]
         let g:vimwiki_w32_dir_enc = 'cp936'
     endif
@@ -552,10 +549,16 @@ if !exists("g:vimwiki_list")
     nmap <Leader>ii :VimwikiTabGoHome<cr>
 endif
 
+" 不要显示 VimWiki 菜单
+let g:vimwiki_menu = ""
+
 " on Windows, default charset is gbk
 if has("win32")
     let g:fontsize#encoding = "cp936"
 endif
+
+" don't let NERD* plugin add to the menu
+let g:NERDMenuMode = 0
 
 " =============
 " Color Scheme
