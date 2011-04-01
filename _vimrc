@@ -520,6 +520,9 @@ let g:checksyntax_cmd_javascript .= ' -nofilelisting -nocontext -nosummary -nolo
 " VIM HTML 插件
 let g:no_html_toolbar = 'yes'
 
+" Don't display NERDComment Menu.
+let g:NERDMenuMode = 0
+
 " VimWiki 配置
 if !exists("g:vimwiki_list")
     let g:vimwiki_list = [

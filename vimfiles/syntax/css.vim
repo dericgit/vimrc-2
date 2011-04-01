@@ -590,7 +590,7 @@ if has("gui_running") || &t_Co==256
        unlet i
    endfunction
 
-   autocmd BufNewFile,BufRead,BufEnter,WinEnter *.css silent call s:PreviewCSSColorAllBuffer()
+   "autocmd BufNewFile,BufRead,BufEnter,WinEnter *.css silent call s:PreviewCSSColorAllBuffer()
    autocmd CursorHold  *.css silent call s:PreviewCSSColorInLine('.')
    autocmd CursorHoldI *.css silent call s:PreviewCSSColorInLine('.')
    set ut=100
