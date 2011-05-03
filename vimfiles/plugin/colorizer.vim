@@ -30,6 +30,7 @@ function! s:FGforBG(bg) "{{{2
       return '#ffffff'
    end
 endfunction
+
 function! s:Rgb2xterm(color) "{{{2
    " selects the nearest xterm color for a rgb value like #FF0000
    let best_match=0
@@ -46,6 +47,7 @@ function! s:Rgb2xterm(color) "{{{2
    endfor
    return best_match
 endfunction
+
 "" the 6 value iterations in the xterm color cube {{{2
 let s:valuerange = [ 0x00, 0x5F, 0x87, 0xAF, 0xD7, 0xFF ]
 
@@ -80,12 +82,14 @@ function! s:Xterm2rgb(color) "{{{2
    let rgb=[r,g,b]
    return rgb
 endfunction
+
 function! s:pow(x, n) "{{{2
    let x = a:x
    for i in range(a:n-1)
       let x = x*a:x
    return x
 endfunction
+
 function! s:SetMatcher(clr,pat) "{{{2
    let group = 'Color'.substitute(a:clr,'^#','','')
    redir => s:currentmatch
@@ -133,11 +137,13 @@ function s:UpdateAll() "{{{2
    endwhile
    unlet i
 endfunction
+
 let s:colortable=[] "{{{2
 for c in range(0, 254)
    let color = s:Xterm2rgb(c)
    call add(s:colortable, color)
 endfor
+
 if has("gui_running") || &t_Co==256 "{{{2
    call s:UpdateAll()
 
