@@ -107,21 +107,8 @@ function! s:SetMatcher(clr,pat) "{{{2
    endif
 endfunction
 
-function! s:PreviewColorInLine(where) "{{{2
-   " TODO 一行有两个颜色时
-   let place = 0
-   let foundcolor = matchstr(getline(a:where), '#[0-9A-Fa-f]\{6\}\d\@!')
-   while foundcolor != ''
-      let color = ''
-      let color = foundcolor
-      call s:SetMatcher(color,foundcolor)
-      let place = match(getline(a:where), '#[0-9A-Fa-f]\{6\}\d\@!', place) + 1
-      let foundcolor = matchstr(getline(a:where), '#[0-9A-Fa-f]\{6\}\d\@!', place)
-   endwhile
-endfunction
-
 function! s:PreviewColorInLine(where)
-   " TODO use cssColor matchdata
+   " TODO 一行有两个颜色时
    let foundcolor = matchstr( getline(a:where), '#[0-9A-Fa-f]\{3,6\}\>' )
    let color = ''
    if foundcolor != ''
@@ -134,11 +121,7 @@ function! s:PreviewColorInLine(where)
       endif
       if color != ''
          return s:SetMatcher(color,foundcolor)
-      else
-         return 0
       endif
-   else
-      return 0
    endif
 endfunction
 
