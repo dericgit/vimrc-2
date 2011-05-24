@@ -371,23 +371,10 @@ if has("autocmd")
     " 保存编辑状态
     au BufWinLeave * if expand('%') != '' && &buftype == '' | mkview | endif
     au BufRead     * if expand('%') != '' && &buftype == '' | silent loadview | syntax on | endif
-
-    " 自动最大化窗口
-    if has('gui_running')
-        if has("win32")
-            au GUIEnter * simalt ~x
-            "elseif has("unix")
-            "au GUIEnter * winpos 0 0
-            "set lines=999 columns=999
-            
-            " 给 Win32 下的 gVim 窗口设置透明度
-            au GUIEnter * call libcallnr("vimtweak.dll", "SetAlpha", 245)
-        endif
-    endif
 endif
 
 " =========
-" 图形界面
+" GUI
 " =========
 if has('gui_running')
     " 只显示菜单
@@ -403,68 +390,72 @@ if has('gui_running')
         " f11 最大化
         nmap <f11> :call libcallnr('fullscreen.dll', 'ToggleFullScreen', 0)<cr>
         nmap <Leader>ff :call libcallnr('fullscreen.dll', 'ToggleFullScreen', 0)<cr>
-        
+
+        " 自动最大化窗口
+        au GUIEnter * simalt ~x
+
+        " 给 Win32 下的 gVim 窗口设置透明度
+        au GUIEnter * call libcallnr("vimtweak.dll", "SetAlpha", 250)
+
         " 字体配置
         exec 'set guifont='.iconv('Courier_New', &enc, 'gbk').':h10:cANSI'
         exec 'set guifontwide='.iconv('Microsoft\ YaHei', &enc, 'gbk').':h10'
     endif
 
+    " Under Mac
+    if has("mac") || has("gui_macvim")
+        " MacVim 下的字体配置
+        set guifont=Courier_New:h14
+        set guifontwide=YouYuan:h14
+
+        " 半透明和窗口大小
+        set transparency=2
+        set lines=200 columns=120
+
+        " 使用 MacVim 原生的全屏幕功能
+        let s:lines=&lines
+        let s:columns=&columns
+
+        func! FullScreenEnter()
+            set lines=999 columns=999
+            set fu
+        endf
+
+        func! FullScreenLeave()
+            let &lines=s:lines
+            let &columns=s:columns
+            set nofu
+        endf
+
+        func! FullScreenToggle()
+            if &fullscreen
+                call FullScreenLeave()
+            else
+                call FullScreenEnter()
+            endif
+        endf
+
+        set guioptions+=e
+        " Mac 下，按 <Leader>ff 切换全屏
+        nmap <f11> :call FullScreenToggle()<cr>
+        nmap <Leader>ff  :call FullScreenToggle()<cr>
+
+        " I like TCSH :^)
+        set shell=/bin/tcsh
+
+        " Set input method off
+        set imdisable
+
+        " Set QuickTemplatePath
+        let g:QuickTemplatePath = $HOME.'/.vim/templates/'
+
+        " 如果为空文件，则自动设置当前目录为桌面
+        " lcd ~/Desktop/
+    endif
+
     " Under Linux/Unix etc.
     if has("unix") && !has('gui_macvim')
         set guifont=Courier\ 10\ Pitch\ 11
-    endif
-
-    " Under the Mac(MacVim)
-    if has("mac") || has("gui_macvim")
-        if has("gui_macvim")
-            " MacVim 下的字体配置
-            set guifont=Courier_New:h14
-            set guifontwide=YouYuan:h14
-
-            " 半透明和窗口大小
-            set transparency=2
-            set lines=200 columns=120
-
-            " 使用 MacVim 原生的全屏幕功能
-            let s:lines=&lines
-            let s:columns=&columns
-
-            func! FullScreenEnter()
-                set lines=999 columns=999
-                set fu
-            endf
-
-            func! FullScreenLeave()
-                let &lines=s:lines
-                let &columns=s:columns
-                set nofu
-            endf
-
-            func! FullScreenToggle()
-                if &fullscreen
-                    call FullScreenLeave()
-                else
-                    call FullScreenEnter()
-                endif
-            endf
-
-            set guioptions+=e
-            " Mac 下，按 <Leader>ff 切换全屏
-            nmap <f11> :call FullScreenToggle()<cr>
-            nmap <Leader>ff  :call FullScreenToggle()<cr>
-
-            " I like TCSH :^)
-            set shell=/bin/tcsh
-
-            " Set input method off
-            set imdisable
-
-            " Set QuickTemplatePath
-            let g:QuickTemplatePath = $HOME.'/.vim/templates/'
-
-            " 如果为空文件，则自动设置当前目录为桌面
-            lcd ~/Desktop/
-        endif
     endif
 endif
 
@@ -476,6 +467,13 @@ nmap <C-p>   :tabprevious<cr>
 nmap <C-n>   :tabnext<cr>
 nmap <C-k>   :tabclose<cr>
 nmap <C-Tab> :tabnext<cr> 
+
+" insert mode shortcut
+inoremap <C-h> <Left>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-l> <Right>
+inoremap <C-d> <Delete>
 
 "for i in range(1, &tabpagemax)
 "    exec 'nmap <A-'.i.'> '.i.'gt'
@@ -567,6 +565,15 @@ let g:NERDMenuMode = 0
 " Color Scheme
 " =============
 if has('syntax')
+    if has('gui_running')
+        set background=light
+    else
+        set background=dark
+    endif
+
+    " http://ethanschoonover.com/solarized
+    ""colorscheme solarized
+
     colorscheme zenburn
 
     " 默认编辑器配色
