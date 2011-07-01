@@ -136,16 +136,25 @@ func! GotoFirstEffectiveLine()
     exe "normal ".l:c."Gz\<CR>"
 endf
 
+" 匹配配对的字符
+func! MatchingQuotes()
+    inoremap ( ()<left>
+    inoremap [ []<left>
+    inoremap { {}<left>
+    inoremap " ""<left>
+    inoremap ' ''<left>
+endf
+
 " 返回当前时期
 func! GetDateStamp()
     return strftime('%Y-%m-%d')
-endfunction
+endf
 
 " 全选
 func! SelectAll()
     let s:current = line('.')
     exe "norm gg" . (&slm == "" ? "VG" : "gH\<C-O>G")
-endfunc
+endf
 
 " From an idea by Michael Naumann
 func! VisualSearch(direction) range
@@ -332,13 +341,14 @@ if has("autocmd")
 
     " Auto close quotation marks for PHP, Javascript, etc, file
     au FileType php,javascript exe AutoClose()
+    au FileType php,javascript exe MatchingQuotes()
 
     " Auto Check Syntax
     au BufWritePost,FileWritePost *.js,*.php call CheckSyntax(1)
 
     " JavaScript 语法高亮
-    au FileType html,javascript let g:javascript_enable_domhtmlcss = 1
-    au BufRead,BufNewFile *.js setf jquery
+    "au FileType html,javascript let g:javascript_enable_domhtmlcss = 1
+    "au BufRead,BufNewFile *.js setf jquery
 
     " 给各语言文件添加 Dict
     if has('win32')
@@ -485,12 +495,6 @@ inoremap <C-d> <Delete>
 nmap <C-d> :NERDTree<cr>
 nmap <C-e> :BufExplorer<cr>
 nmap <f2>  :BufExplorer<cr>
-
-"inoremap ( ()<left>
-"inoremap [ []<left>
-"inoremap { {}<left>
-"inoremap " ""<left>
-"inoremap ' ''<left>
 
 " 插入模式按 F4 插入当前时间
 imap <f4> <C-r>=GetDateStamp()<cr>
