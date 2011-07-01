@@ -484,6 +484,12 @@ nmap <C-d> :NERDTree<cr>
 nmap <C-e> :BufExplorer<cr>
 nmap <f2>  :BufExplorer<cr>
 
+"inoremap ( ()<left>
+"inoremap [ []<left>
+"inoremap { {}<left>
+"inoremap " ""<left>
+"inoremap ' ''<left>
+
 " 插入模式按 F4 插入当前时间
 imap <f4> <C-r>=GetDateStamp()<cr>
 
