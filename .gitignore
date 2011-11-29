@@ -10,3 +10,5 @@ private.vim
 .DS_Store
 Thumb*.db
 vimfiles/view
+
+vimfiles/.netrwhist
