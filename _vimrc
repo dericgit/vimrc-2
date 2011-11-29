@@ -383,8 +383,6 @@ if has("autocmd")
     au BufRead     * if expand('%') != '' && &buftype == '' | silent loadview | syntax on | endif
 endif
 
-
-
 " =========
 " GUI
 " =========
@@ -415,7 +413,7 @@ if has('gui_running')
     endif
 
     " Under Mac
-    if has("mac") || has("gui_macvim")
+    if has("gui_macvim")
         " MacVim 下的字体配置
         set guifont=Courier_New:h14
         set guifontwide=YouYuan:h14
@@ -510,7 +508,7 @@ nmap <Leader>dd :NERDTree<cr>
 nmap <Leader>bf :BufExplorer<cr>
 
 " 直接查看第一行生效的代码
-nmap <C-g><C-f> :call GotoFirstEffectiveLine()<cr>
+nmap <Leader>gff :call GotoFirstEffectiveLine()<cr>
 
 " 按下 Q 不进入 Ex 模式，而是退出
 nmap Q :x<cr>
@@ -536,8 +534,8 @@ let g:NERDMenuMode = 0
 " VimWiki 配置
 if !exists("g:vimwiki_list")
     let g:vimwiki_list = [
-                \{"path": "~/Wiki/Default/", "path_html": "~/Sites/wiki/",  
-                \   "html_footer": "~/Wiki/Default/footer.tpl", "html_header": "~/Wiki/Default/header.tpl",
+                \{"path": "~/Wiki/Android/source/", "path_html": "~/Wiki/Android/",  
+                \   "html_footer": "~/Wiki/Android/footer.tpl", "html_header": "~/Wiki/Android/header.tpl",
                 \   "auto_export": 1}
                 \]
     let g:vimwiki_auto_checkbox = 0
