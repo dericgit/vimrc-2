@@ -415,12 +415,12 @@ if has('gui_running')
     " Under Mac
     if has("gui_macvim")
         " MacVim 下的字体配置
-        set guifont=Courier_New:h14
-        set guifontwide=YouYuan:h14
+        set guifont=Menlo:h12
+        set guifontwide=Hei:h12
 
         " 半透明和窗口大小
         set transparency=2
-        set lines=200 columns=120
+        set lines=40 columns=100
 
         " 使用 MacVim 原生的全屏幕功能
         let s:lines=&lines
