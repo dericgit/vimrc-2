@@ -7,6 +7,9 @@
 " Change:
 " [+]new feature  [*]improvement  [!]change  [x]bug fix
 "
+" [!] 2012-08-24
+"     小范围调整和更新部分配置
+"
 " [*] 2010-11-23
 "     改进 Vim7.3 相关的配置，使其支持 UNIX 系统
 "
@@ -297,11 +300,6 @@ if has('persistent_undo')
     set undolevels=1000
     set undoreload=10000
 endif
-
-" Diff 模式的时候鼠标同步滚动 for Vim7.3
-if has('cursorbind')
-    set cursorbind
-end
 
 
 " =========
