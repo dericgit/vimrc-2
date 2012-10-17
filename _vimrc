@@ -500,6 +500,7 @@ nmap <C-c><C-h> :NewQuickTemplateTab xhtml<cr>
 nmap <C-c><C-p> :NewQuickTemplateTab php<cr>
 nmap <C-c><C-j> :NewQuickTemplateTab javascript<cr>
 nmap <C-c><C-c> :NewQuickTemplateTab css<cr>
+nmap <C-c><C-r> :NewQuickTemplateTab ruhoh<cr>
 nmap <Leader>ca :Calendar<cr>
 nmap <Leader>mr :MRU<cr>
 nmap <Leader>dd :NERDTree<cr>
