@@ -7,6 +7,9 @@
 " Change:
 " [+]new feature  [*]improvement  [!]change  [x]bug fix
 "
+" [!] 2013-06-27
+"     A Bit change syntax configure for command line use.
+"
 " [!] 2012-08-24
 "     小范围调整和更新部分配置
 "
@@ -110,11 +113,6 @@
 " [+] 2009-02-12
 "     初始化版本，啥时开始的无从考证 :^D
 "
-
-if exists("mingcheng")
-    finish
-endif
-let g:mingcheng = 1
 
 if v:version < 700
     echoerr 'This _vimrc requires Vim 7 or later.'
@@ -559,7 +557,9 @@ if !exists("g:vimwiki_list")
 endif
 
 " 不要显示 VimWiki 菜单
-let g:vimwiki_menu = ""
+if has('gui_running')
+    let g:vimwiki_menu = ""
+endif
 
 " on Windows, default charset is gbk
 if has("win32")
@@ -574,21 +574,16 @@ let g:NERDMenuMode = 0
 " =============
 if has('syntax')
     if has('gui_running')
-        set background=light
-    else
-        set background=dark
+        colorscheme zenburn
+
+        " 默认编辑器配色
+        au BufNewFile,BufRead,BufEnter,WinEnter * colo zenburn
+
+        " 各不同类型的文件配色不同
+        au BufNewFile,BufRead,BufEnter,WinEnter *.wiki colo lucius
+    else 
+        colorscheme slate
     endif
-
-    " http://ethanschoonover.com/solarized
-    ""colorscheme solarized
-
-    colorscheme zenburn
-
-    " 默认编辑器配色
-    au BufNewFile,BufRead,BufEnter,WinEnter * colo zenburn
-
-    " 各不同类型的文件配色不同
-    au BufNewFile,BufRead,BufEnter,WinEnter *.wiki colo lucius
 
     " 保证语法高亮
     syntax on
