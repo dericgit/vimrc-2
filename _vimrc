@@ -540,7 +540,9 @@ let g:no_html_toolbar = 'yes'
 let g:NERDMenuMode = 0
 
 " 不要显示 VimWiki 菜单
-let g:vimwiki_menu = ""
+if has('gui_running')
+    let g:vimwiki_menu = ""
+endif
 
 " on Windows, default charset is gbk
 if has("win32")
