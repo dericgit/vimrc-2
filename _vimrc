@@ -7,6 +7,9 @@
 " Change:
 " [+]new feature  [*]improvement  [!]change  [x]bug fix
 "
+" [!] 2014-07-03
+"     清理部分不再需要的配置和插件
+
 " [!] 2013-06-27
 "     A Bit change syntax configure for command line use.
 "
@@ -113,6 +116,11 @@
 " [+] 2009-02-12
 "     初始化版本，啥时开始的无从考证 :^D
 "
+
+if exists("mingcheng")
+    finish
+endif
+let g:mingcheng = 1
 
 if v:version < 700
     echoerr 'This _vimrc requires Vim 7 or later.'
@@ -268,7 +276,7 @@ if has("multi_byte")
     set encoding=utf-8
     " English messages only
     "language messages zh_CN.utf-8
-    
+
     if has('win32')
         language english
         let &termencoding=&encoding
@@ -371,6 +379,12 @@ if has("autocmd")
     " 增加 Objective-C 语法支持
     au BufNewFile,BufRead,BufEnter,WinEnter,FileType *.m,*.h setf objc
 
+    " smali syntax supports
+    au BufNewFile,BufRead,BufEnter,WinEnter,FileType *.smali set filetype=smali
+
+    " Ardunio Support
+    au BufNewFile,BufRead,BufEnter,WinEnter,FileType *.pde,*.ino set filetype=arduino
+
     " 将指定文件的换行符转换成 UNIX 格式
     au FileType php,javascript,html,css,python,vim,vimwiki set ff=unix
 
@@ -378,6 +392,7 @@ if has("autocmd")
     au BufWinLeave * if expand('%') != '' && &buftype == '' | mkview | endif
     au BufRead     * if expand('%') != '' && &buftype == '' | silent loadview | syntax on | endif
 endif
+
 
 " =========
 " GUI
@@ -411,12 +426,12 @@ if has('gui_running')
     " Under Mac
     if has("gui_macvim")
         " MacVim 下的字体配置
-        set guifont=Source\ Code\ Pro\ Light:h12
-        set guifontwide=微软雅黑:h12
+        set guifont=Monaco:h12
+        set guifontwide=Hei:h12
 
         " 半透明和窗口大小
-        set transparency=2
-        set lines=40 columns=100
+        set transparency=5
+        set lines=40 columns=120
 
         " 使用 MacVim 原生的全屏幕功能
         let s:lines=&lines
@@ -456,7 +471,7 @@ if has('gui_running')
         let g:QuickTemplatePath = $HOME.'/.vim/templates/'
 
         " 如果为空文件，则自动设置当前目录为桌面
-        " lcd ~/Desktop/
+        lcd ~/Desktop/
     endif
 
     " Under Linux/Unix etc.
@@ -481,10 +496,6 @@ inoremap <C-k> <Up>
 inoremap <C-l> <Right>
 inoremap <C-d> <Delete>
 
-"for i in range(1, &tabpagemax)
-"    exec 'nmap <A-'.i.'> '.i.'gt'
-"endfor
-
 " 插件快捷键
 nmap <C-d> :NERDTree<cr>
 nmap <C-e> :BufExplorer<cr>
@@ -498,6 +509,7 @@ nmap <C-c><C-h> :NewQuickTemplateTab xhtml<cr>
 nmap <C-c><C-p> :NewQuickTemplateTab php<cr>
 nmap <C-c><C-j> :NewQuickTemplateTab javascript<cr>
 nmap <C-c><C-c> :NewQuickTemplateTab css<cr>
+nmap <C-c><C-r> :NewQuickTemplateTab ruhoh<cr>
 nmap <Leader>ca :Calendar<cr>
 nmap <Leader>mr :MRU<cr>
 nmap <Leader>dd :NERDTree<cr>
@@ -527,35 +539,6 @@ let g:no_html_toolbar = 'yes'
 " Don't display NERDComment Menu.
 let g:NERDMenuMode = 0
 
-" VimWiki 配置
-if !exists("g:vimwiki_list")
-    let g:vimwiki_list = [
-                \{"path": "~/Wiki/Android/source/", "path_html": "~/Wiki/Android/",  
-                \   "html_footer": "~/Wiki/Android/footer.tpl", "html_header": "~/Wiki/Android/header.tpl",
-                \   "auto_export": 1}
-                \]
-    let g:vimwiki_auto_checkbox = 0
-    if has('win32')
-        " 注意！
-        " 1、如果在 Windows 下，盘符必须大写
-        " 2、路径末尾最好加上目录分隔符
-        let s:vimwiki_root = "d:/My Documents/My Dropbox/Vimwiki"
-        let g:vimwiki_list = [
-                    \{"path": s:vimwiki_root."/Default/", 
-                    \   "html_footer": s:vimwiki_root."/Default/footer.tpl", 
-                    \   "html_header": s:vimwiki_root."/Default/header.tpl",
-                    \   "path_html": s:vimwiki_root."/Default/_output/", "auto_export": 1}
-                    \]
-        let g:vimwiki_w32_dir_enc = 'cp936'
-    endif
-
-    au FileType vimwiki set ff=unix fenc=utf8 noswapfile nobackup
-    "au FileType vimwiki imap <C-t> <c-r>=TriggerSnippet()<cr>
-
-    nmap <C-i><C-i> :VimwikiTabGoHome<cr>
-    nmap <Leader>ii :VimwikiTabGoHome<cr>
-endif
-
 " 不要显示 VimWiki 菜单
 if has('gui_running')
     let g:vimwiki_menu = ""
@@ -568,6 +551,7 @@ endif
 
 " don't let NERD* plugin add to the menu
 let g:NERDMenuMode = 0
+
 
 " =============
 " Color Scheme
@@ -589,4 +573,5 @@ if has('syntax')
     syntax on
 endif
 
+nnoremap <Leader>less :w <BAR> !lessc % > %:t:r.css<CR><space>
 " vim: set et sw=4 ts=4 sts=4 fdm=marker ft=vim ff=unix fenc=utf8:
