@@ -1,4 +1,4 @@
-﻿" ===============================================================
+" ===============================================================
 "         File: TransferChinese.vim
 "       Author: Xiangjiang Ma <maxiangjiang@yahoo.com>
 "  Last Change: 05/30/2004 Sun
