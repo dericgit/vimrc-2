@@ -420,14 +420,18 @@ if has('gui_running')
 
         " 字体配置
         exec 'set guifont='.iconv('Courier_New', &enc, 'gbk').':h10:cANSI'
-        exec 'set guifontwide='.iconv('Microsoft\ YaHei', &enc, 'gbk').':h10'
+        if has("multi_byte")
+            exec 'set guifontwide='.iconv('Microsoft\ YaHei', &enc, 'gbk').':h10'
+        endif
     endif
 
     " Under Mac
     if has("gui_macvim")
+        set anti
+
         " MacVim 下的字体配置
         set guifont=Monaco:h12
-        set guifontwide=Hei:h12
+        set guifontwide=Lantinghei\ SC\ Extralight:h12
 
         " 半透明和窗口大小
         set transparency=5
